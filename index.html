@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LUMASHAPE</title>
+  <meta name="description" content="A bird's color space is four-dimensional. LUMASHAPE renders the tesseract of receptor states — rotate color into the ultraviolet axis, collapse it back to the human cube, and see the metamer fibers your eye can't split." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%230B100E'/><path d='M20 62 Q50 18 80 62 Q50 50 20 62 Z' fill='none' stroke='%235FD8C8' stroke-width='5'/><circle cx='50' cy='40' r='5' fill='%238A6CFF'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Spectral:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <canvas id="view"></canvas>
+
+  <header id="topbar">
+    <div id="brand">
+      <h1>Lumashape</h1>
+      <span>the bird's fourth primary</span>
+    </div>
+    <button id="btn-shot" title="Save a PNG (S)">PNG</button>
+  </header>
+
+  <aside id="panel">
+    <section class="sec">
+      <p class="lede">Your eye has three cone types, so your color space is a cube.
+      A bird has a fourth — <b class="uv-word">ultraviolet</b> — so its color space
+      is a <b>tesseract</b>. Every point here is one receptor state; the axis you're
+      missing is the one that glows.</p>
+      <div class="uv-legend">
+        <span class="uv-swatch" aria-hidden="true"></span>
+        <span>UV, in false color — no real color can stand in for it</span>
+      </div>
+    </section>
+
+    <section class="sec">
+      <h2>Rotation</h2>
+      <div class="plane-cols">
+        <div><h3>Your planes</h3><div id="planes-human"></div></div>
+        <div><h3 class="uv-word">Into UV</h3><div id="planes-uv"></div></div>
+      </div>
+      <button id="btn-still" class="ghost-btn">Stop all rotation</button>
+    </section>
+
+    <section class="sec">
+      <h2>The experiment</h2>
+      <label class="ctl-label" for="ctl-collapse">Bird space → your shadow of it</label>
+      <input id="ctl-collapse" type="range" min="0" max="1" step="0.01" value="1" />
+      <div class="check-row">
+        <label class="check"><input id="ctl-bird" type="checkbox" /> See like a bird <kbd>B</kbd></label>
+        <label class="check"><input id="ctl-fibers" type="checkbox" /> Metamer fibers <kbd>F</kbd></label>
+      </div>
+      <p class="note">Each fiber is a line of colors a bird tells apart — and you file
+      under one name. Collapse the space and whole fibers land on single points.</p>
+    </section>
+
+    <section class="sec">
+      <h2>Display</h2>
+      <div class="row2">
+        <div>
+          <label class="ctl-label" for="ctl-density">Lattice</label>
+          <select id="ctl-density">
+            <option value="6">6⁴ · 1,296</option>
+            <option value="8" selected>8⁴ · 4,096</option>
+            <option value="10">10⁴ · 10,000</option>
+          </select>
+        </div>
+        <div>
+          <label class="ctl-label" for="ctl-size">Point size</label>
+          <input id="ctl-size" type="range" min="1.5" max="7" step="0.1" value="3.4" />
+        </div>
+      </div>
+      <label class="check"><input id="ctl-spin" type="checkbox" checked /> Auto rotate</label>
+    </section>
+
+    <section class="sec">
+      <h2>The flower test</h2>
+      <canvas id="flower-canvas" width="480" height="200"></canvas>
+      <p class="note">Many flowers paint runway markings in UV for their pollinators.
+      Illustration of a typical nectar-guide pattern — press <kbd>B</kbd>.</p>
+    </section>
+
+    <footer id="colophon">
+      <span>Points seen: <b id="stat-points">4,096</b></span>
+      <span>Sibling of <a href="https://mowke.github.io/HYPERSHAPE/" target="_blank" rel="noopener">HYPERSHAPE</a> &amp; <a href="https://mowke.github.io/LUMA/" target="_blank" rel="noopener">LUMA</a></span>
+    </footer>
+  </aside>
+
+  <div id="hint">drag — orbit · right-drag — rotate into UV · scroll — zoom</div>
+
+  <div id="gl-error">
+    <div>
+      <h2>This needs WebGL2</h2>
+      <p>Open it in a current version of Chrome, Firefox, Edge, or Safari — then reload.</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
