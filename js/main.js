@@ -62,6 +62,7 @@ function rebuild() {
   }
   renderer.setFibers(fib);
   $('stat-points').textContent = (n ** 4).toLocaleString();
+  $('tele-states').textContent = (n ** 4).toLocaleString();
 }
 
 // ── 4D + 3D math ──
@@ -209,6 +210,15 @@ window.addEventListener('keydown', (e) => {
 rebuild();
 drawFlowers($('flower-canvas'), false);
 
+let fpsEma = 60, teleTick = 0;
+function updateTelemetry() {
+  const TAU = Math.PI * 2;
+  const mod = (a) => (((a % TAU) + TAU) % TAU).toFixed(2);
+  $('tele-rot').textContent =
+    `L ${mod(state.angles.LU)} · M ${mod(state.angles.MU)} · S ${mod(state.angles.SU)}`;
+  $('tele-fps').textContent = Math.round(fpsEma);
+}
+
 let last = performance.now();
 function frame(now) {
   const dt = Math.min((now - last) / 1000, 0.05);
@@ -232,6 +242,8 @@ function frame(now) {
     pointSize: state.pointSize,
     time: now / 1000,
   });
+  fpsEma = fpsEma * 0.92 + (1 / Math.max(dt, 1e-3)) * 0.08;
+  if ((teleTick++ % 10) === 0) updateTelemetry();
   requestAnimationFrame(frame);
 }
 requestAnimationFrame(frame);

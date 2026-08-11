@@ -54,9 +54,9 @@ export function drawFlowers(canvas, birdVision) {
   flower(W * 0.27, H * 0.52, H * 0.40, false);
   flower(W * 0.73, H * 0.52, H * 0.40, birdVision);
 
-  g.font = 'italic 500 13px "EB Garamond", serif';
+  g.font = '600 10px "IBM Plex Mono", monospace';
   g.textAlign = 'center';
-  g.fillStyle = '#5c6b5e';
-  g.fillText('as you see it', W * 0.27, H * 0.96);
-  g.fillText(birdVision ? 'as the bird sees it' : 'as the bird sees it (press B)', W * 0.73, H * 0.96);
+  g.fillStyle = 'rgba(216,212,228,0.6)';
+  g.fillText('YOU', W * 0.27, H * 0.96);
+  g.fillText(birdVision ? 'THE BIRD' : 'THE BIRD · PRESS B', W * 0.73, H * 0.96);
 }

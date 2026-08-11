@@ -4,107 +4,129 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>LUMASHAPE</title>
-  <meta name="description" content="A plate from an impossible atlas: the four-dimensional color space of a bird's eye. Rotate color into ultraviolet, collapse it back to the human cube, and see the metamer fibres your eye can't split." />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23EFE9DA'/><rect x='14' y='14' width='72' height='72' fill='%23101312'/><rect x='19' y='19' width='62' height='62' fill='none' stroke='%23EFE9DA' stroke-width='2'/><circle cx='50' cy='50' r='9' fill='%238A6CFF'/></svg>" />
+  <meta name="description" content="The four-dimensional color space of a bird's eye, on a rotatable 4D lattice — rotate color into ultraviolet, collapse it back to the human cube, and watch the metamer fibers your eye can't split." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect x='18' y='18' width='64' height='64' fill='none' stroke='%238f7bff' stroke-width='6'/><rect x='34' y='34' width='32' height='32' fill='none' stroke='%238f7bff' stroke-width='4'/><line x1='18' y1='18' x2='34' y2='34' stroke='%238f7bff' stroke-width='4'/><line x1='82' y1='18' x2='66' y2='34' stroke='%238f7bff' stroke-width='4'/><line x1='18' y1='82' x2='34' y2='66' stroke='%238f7bff' stroke-width='4'/><line x1='82' y1='82' x2='66' y2='66' stroke='%238f7bff' stroke-width='4'/></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Michroma&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header id="running-head">
-    <span id="atlas-title">Lumashape</span>
-    <span id="atlas-sub">an atlas of the bird’s colour · in one plate</span>
-    <button id="btn-shot" title="Save the plate as a PNG (S)">Save the plate</button>
+  <canvas id="view"></canvas>
+
+  <header id="topbar">
+    <div id="brand">
+      <h1>LUMASHAPE</h1>
+      <span>tetrachromat station · uv → 4th axis</span>
+    </div>
+    <nav id="topbtns">
+      <button id="btn-shot" title="Save a PNG (S)">PNG</button>
+      <a id="btn-hs" href="https://mowke.github.io/HYPERSHAPE/" target="_blank" rel="noopener" title="Sibling station">HYPERSHAPE</a>
+      <a id="btn-lu" href="https://mowke.github.io/LUMA/" target="_blank" rel="noopener" title="Sibling exhibition">LUMA</a>
+    </nav>
   </header>
 
-  <main id="spread">
-    <aside id="page-text">
-      <h1>The bird’s<br/>fourth primary</h1>
-      <p class="prose">Your eye keeps three kinds of cone, so every colour you have ever
-      seen is a mixture of three signals — a point in a cube. The bird at your window
-      keeps four. Its fourth cone drinks <em>ultraviolet</em>, and its colours are
-      mixtures of four signals: a point in a four-dimensional cube no page can hold.</p>
-      <p class="prose">The plate opposite shows that object — every dot one state of the
-      four cones <span class="sc">l · m · s · uv</span>. Three of its axes make the cube
-      you live in. The fourth is the one this book cannot print.</p>
-      <div class="uv-legend">
-        <span class="uv-swatch" aria-hidden="true"></span>
-        <span>Ultraviolet is set in a false colour throughout, there being no true one.</span>
+  <aside id="panel">
+    <details class="panel-section" open>
+      <summary><span class="sec-label">Specimen</span></summary>
+      <div class="section-body">
+        <p class="brief">Your three cone types make color a cube. A bird's four make it
+        a tesseract — the fourth axis is <b class="uv-ink">ultraviolet</b>. Every point
+        is one receptor state (L·M·S·UV).</p>
       </div>
+    </details>
 
-      <section class="figure">
-        <h2><span class="fig-no">Fig. 1.</span> Rotation of the specimen</h2>
-        <div class="plane-cols">
-          <div><h3>Of your planes</h3><div id="planes-human"></div></div>
-          <div><h3>Into ultraviolet</h3><div id="planes-uv"></div></div>
+    <details class="panel-section" open>
+      <summary><span class="sec-label">Rotation</span></summary>
+      <div class="section-body">
+        <div class="rot-grid">
+          <div class="hint-line">Spatial</div>
+          <div class="hint-line hint-uv">Into UV</div>
+          <div id="planes-human" class="plane-col"></div>
+          <div id="planes-uv" class="plane-col"></div>
         </div>
-        <button id="btn-still" class="ink-btn">Hold the specimen still</button>
-      </section>
+        <button id="btn-still" class="mini-btn">Stop all</button>
+      </div>
+    </details>
 
-      <section class="figure">
-        <h2><span class="fig-no">Fig. 2.</span> The collapse</h2>
-        <label class="ctl-label" for="ctl-collapse">The bird’s space, flattened to your shadow of it</label>
-        <input id="ctl-collapse" type="range" min="0" max="1" step="0.01" value="1" />
-        <p class="aside-note">Slide left and watch colours a bird tells apart land upon
-        a single point. The pile-up is called metamerism; you live inside it.</p>
-      </section>
-
-      <section class="figure">
-        <h2><span class="fig-no">Fig. 3.</span> Two ways of seeing</h2>
-        <label class="check"><input id="ctl-bird" type="checkbox" /> <span>See as the bird sees <kbd>B</kbd></span></label>
-        <label class="check"><input id="ctl-fibers" type="checkbox" /> <span>Show the metamer fibres <kbd>F</kbd></span></label>
-        <p class="aside-note">Each fibre is a line of colours the bird distinguishes,
-        and you file under one name.</p>
-      </section>
-
-      <section class="figure">
-        <h2><span class="fig-no">Fig. 4.</span> The flower test</h2>
-        <canvas id="flower-canvas" width="480" height="200"></canvas>
-        <p class="aside-note">Many flowers paint runway markings in ultraviolet for
-        their pollinators. An illustration of the habit — press <kbd>B</kbd>.</p>
-      </section>
-
-      <section class="figure">
-        <h2><span class="fig-no">App.</span> Particulars</h2>
+    <details class="panel-section" open>
+      <summary><span class="sec-label">The experiment</span></summary>
+      <div class="section-body">
+        <div class="ctl-row">
+          <div class="ctl-row-top">
+            <label class="ctl-label" for="ctl-collapse">Bird space → your shadow</label>
+          </div>
+          <input id="ctl-collapse" type="range" min="0" max="1" step="0.01" value="1" />
+        </div>
         <div class="row2">
-          <div>
-            <label class="ctl-label" for="ctl-density">States shown</label>
+          <div class="ctl-check">
+            <input id="ctl-bird" type="checkbox" />
+            <label for="ctl-bird">Bird vision</label>
+          </div>
+          <div class="ctl-check">
+            <input id="ctl-fibers" type="checkbox" />
+            <label for="ctl-fibers">Metamer fibers</label>
+          </div>
+        </div>
+        <p class="note">Each fiber: colors a bird tells apart, filed by you under one
+        name. Collapse the space and whole fibers land on single points.</p>
+      </div>
+    </details>
+
+    <details class="panel-section" open>
+      <summary><span class="sec-label">Display</span></summary>
+      <div class="section-body">
+        <div class="row2">
+          <div class="ctl-row">
+            <div class="ctl-row-top"><label class="ctl-label" for="ctl-density">Lattice</label></div>
             <select id="ctl-density">
-              <option value="6">1,296 — a sketch</option>
-              <option value="8" selected>4,096 — the plate</option>
-              <option value="10">10,000 — fine grain</option>
+              <option value="6">6⁴ · 1,296</option>
+              <option value="8" selected>8⁴ · 4,096</option>
+              <option value="10">10⁴ · 10,000</option>
             </select>
           </div>
-          <div>
-            <label class="ctl-label" for="ctl-size">Stipple weight</label>
+          <div class="ctl-row">
+            <div class="ctl-row-top"><label class="ctl-label" for="ctl-size">Point size</label></div>
             <input id="ctl-size" type="range" min="1.5" max="7" step="0.1" value="3.4" />
           </div>
         </div>
-        <label class="check"><input id="ctl-spin" type="checkbox" checked /> <span>Let the specimen turn</span></label>
-      </section>
-
-      <footer id="colophon">
-        Being the third volume, after
-        <a href="https://mowke.github.io/HYPERSHAPE/" target="_blank" rel="noopener">Hypershape</a>
-        &amp; <a href="https://mowke.github.io/LUMA/" target="_blank" rel="noopener">Luma</a>.
-      </footer>
-    </aside>
-
-    <section id="page-plate">
-      <div id="plate-frame">
-        <canvas id="view"></canvas>
+        <div class="ctl-check">
+          <input id="ctl-spin" type="checkbox" checked />
+          <label for="ctl-spin">Auto rotate</label>
+        </div>
       </div>
-      <p id="plate-caption"><span class="sc">Plate I.</span> — <span class="sc">The receptor
-      lattice of the tetrachromat eye.</span> Four cone classes; <b id="stat-points">4,096</b> states shown.</p>
-      <p id="hint">Drag to turn the specimen; right-drag turns it through ultraviolet; scroll draws it near.</p>
-    </section>
-  </main>
+    </details>
+
+    <details class="panel-section" open>
+      <summary><span class="sec-label">Flower test</span></summary>
+      <div class="section-body">
+        <canvas id="flower-canvas" width="480" height="200"></canvas>
+        <p class="note">Many flowers paint UV nectar guides for pollinators.
+        Illustration — toggle bird vision (B).</p>
+      </div>
+    </details>
+  </aside>
+
+  <div id="info-card">
+    <div id="info-eyebrow">OBJECT DATA</div>
+    <div id="info-name">RECEPTOR LATTICE</div>
+    <div id="info-stats"><span id="stat-points">4,096</span> cone states · 6 rotation planes · 3 into UV</div>
+    <div id="info-blurb">The color space of a tetrachromat eye. Right-drag to rotate color into ultraviolet.</div>
+  </div>
+
+  <footer id="telemetry">
+    <span class="tele-cell"><b>OBJ</b> <span id="tele-obj">RECEPTOR LATTICE</span></span>
+    <span class="tele-cell"><b>STATES</b> <span id="tele-states">4,096</span></span>
+    <span class="tele-cell tele-rot"><b>ROT→UV</b> <span id="tele-rot">L 0.00 · M 0.00 · S 0.00</span></span>
+    <span class="tele-cell tele-fps"><b>FPS</b> <span id="tele-fps">60</span></span>
+    <span class="tele-cell"><b>UV</b> <span class="uv-swatch" title="false color — no real color can stand in for UV"></span> <b>FALSE COLOR</b></span>
+    <span class="tele-cell tele-hint">drag rotate · right-drag → uv · b bird vision · f fibers</span>
+  </footer>
 
   <div id="gl-error">
     <div>
-      <h2>The plate wants WebGL2</h2>
-      <p>Open this page in a current version of Chrome, Firefox, Edge, or Safari — then reload.</p>
+      <h2>This station needs WebGL2</h2>
+      <p>Open it in a current version of Chrome, Firefox, Edge, or Safari — then reload.</p>
     </div>
   </div>
 
